@@ -20,8 +20,13 @@ class AuthService(context: Context) {
     val email get():String? = sharedPreference.getString(emailKey, null)
 
     fun login(userName: String, email: String) {
-        sharedPreference.edit().putString(userNameKey, userName)
-        sharedPreference.edit().putString(emailKey, email)
+        sharedPreference.edit().putString(userNameKey, userName).apply()
+        sharedPreference.edit().putString(emailKey, email).apply()
+        sharedPreference.edit().putBoolean(isLoggedInKey, true).apply()
+    }
+
+    fun logout() {
+        sharedPreference.edit().putBoolean(isLoggedInKey, false).apply()
     }
 
 
